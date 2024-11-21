@@ -116,6 +116,17 @@
   :config
   (marginalia-mode 1))
 
+(use-package metasearch
+  :straight (:local-repo  "~/Documents/GitHub/metasearch")
+  :config
+  (defun metasearch-search ()
+    (interactive)
+    (metasearch-search-set "Search"))
+  :bind
+  (:map global-map
+	      ("C-c d m" . metasearch-search)
+	      ("C-c d M" . metasearch-search-set)))
+
 (use-package nov
   :config
   (add-to-list 'auto-mode-alist '("\\.epub\\'" . nov-mode)))
@@ -141,20 +152,89 @@
   (:map global-map
 	("C-o" . nil)
 	("C-o f" . orgrr-find)
+	("M-s-f" . orgrr-find)
 	("C-o l" . orgrr-show-backlinks)
+	("M-s-l" . orgrr-show-backlinks)
 	("C-o i" . orgrr-insert)
+	("M-s-i" . orgrr-insert)
 	("C-o I" . orgrr-insert-project)
+	("M-s-I" . orgrr-insert-project)
 	("C-o A" . orgrr-add-to-project)
+	("M-s-A" . orgrr-add-to-project)
 	("C-o P" . orgrr-open-project)
+	("M-s-P" . orgrr-open-project)
 	("C-o r" . orgrr-show-related-notes)
+	("M-s-r" . orgrr-show-related-notes)
+	("C-o R" . orgrr-random-note)
+	("M-s-R" . orgrr-random-note)
 	("C-o o" . orgrr-change-container)
+	("M-s-o" . orgrr-change-container)
 	("C-o a" . orgrr-add-zettel)
+	("M-s-a" . orgrr-add-zettel)
 	("C-o z" . orgrr-find-zettel)
+	("M-s-z" . orgrr-find-zettel)
 	("C-o s" . orgrr-show-sequence)
+	("M-s-s" . orgrr-show-sequence)
+	("M-s-S" . orgrr-search)
+	("C-o S" . orgrr-search)
 	("C-o p" . orgrr-open-previous-zettel)
+	("M-s-p" . orgrr-open-previous-zettel)
 	("C-o n" . orgrr-open-next-zettel)
+	("M-s-n" . orgrr-open-next-zettel)
 	("C-o N" . orgrr-no-find-zettel)
-	("C-o O" . orgrr-open-ref-url)))
+	("M-s-N" . orgrr-no-find-zettel)
+	("C-o O" . orgrr-open-ref-url)
+	("M-s-O" . orgrr-open-ref-url)
+	("M-s-c" . orgrr-compile-sequence)
+	("C-o c" . orgrr-compile-sequence)))
+ (defun lt/combined-search ()
+  "Combines orgrr-search and metasearch-search-set."
+ (interactive)
+ (let ((search-query))
+   (if (region-active-p)
+	    (setq search-query (buffer-substring-no-properties (region-beginning)(region-end)))
+	  (setq search-query (read-from-minibuffer "Search: ")))
+   (orgrr-search '(4) search-query)
+   (metasearch-search-set "Search" search-query)))
+
+(global-set-key (kbd "C-c d c") 'lt/combined-search)
+
+(defun lt/sequence-1 ()
+ "A function to invoke my favorite sequence."
+ (interactive)
+ (orgrr-show-sequence "political system of the People's Republic of China"))
+
+(defun lt/sequence-2 ()
+ "A function to invoke my favorite sequence."
+ (interactive)
+ (orgrr-show-sequence "politicial science"))
+
+(defun lt/sequence-3 ()
+ "A function to invoke my favorite sequence."
+ (interactive)
+ (orgrr-show-sequence "self-improvement"))
+
+(defun lt/sequence-4 ()
+ "A function to invoke my favorite sequence."
+ (interactive)
+ (orgrr-show-sequence "OSINT"))
+
+(defun lt/sequence-5 ()
+ "A function to invoke my favorite sequence."
+ (interactive)
+ (orgrr-show-sequence "Rural China"))
+
+(global-set-key (kbd "C-o 1") 'lt/sequence-1)
+(global-set-key (kbd "C-o 2") 'lt/sequence-2)
+(global-set-key (kbd "C-o 3") 'lt/sequence-3)
+(global-set-key (kbd "C-o 4") 'lt/sequence-4)
+(global-set-key (kbd "C-o 5") 'lt/sequence-5)
+
+(global-set-key (kbd "M-s-1") 'lt/sequence-1)
+(global-set-key (kbd "M-s-2") 'lt/sequence-2)
+(global-set-key (kbd "M-s-3") 'lt/sequence-3)
+(global-set-key (kbd "M-s-4") 'lt/sequence-4)
+(global-set-key (kbd "M-s-5") 'lt/sequence-5)
 
 (use-package ox-pandoc)
 
@@ -173,15 +253,13 @@
 (use-package zenburn-theme)
 
 ;; start up window & font & design
-
+(add-to-list 'default-frame-alist '(fullscreen . maximized))
 (load-theme 'zenburn t)
 (fringe-mode 10)
 (set-face-attribute 'fringe nil :background (face-background 'default))
 (menu-bar-mode -1) ;; no menu bar
 (transient-mark-mode 1) ;; enable transient mark mode
 (setq-default line-spacing 0.15)
-(split-window-right)
-(balance-windows)
 (global-visual-line-mode 1)
 (when (eq system-type 'gnu/linux)
   (set-face-attribute 'default nil :height 120))
@@ -209,18 +287,6 @@
                       :weight 'bold))
 
 (electric-indent-mode -1) ;; prevents indents in org-babbel
-
-(defun my-set-emacs-frame-position-and-size ()
-  "Set the Emacs frame position and size on startup."
-  (let* ((screen-width (display-pixel-width))
-         (screen-height (display-pixel-height))
-         (frame-width (round (* screen-width 0.70))) ; 70% of screen width
-         (frame-height (round (* screen-height 0.80))) ; 80% of screen height
-         (left (/ (- screen-width frame-width) 2))
-         (top (/ (- screen-height frame-height) 2)))
-    (set-frame-size (selected-frame) (round (/ frame-width (frame-char-width))) (round (/ frame-height (frame-char-height))))
-    (set-frame-position (selected-frame) left top)))
-(add-hook 'emacs-startup-hook 'my-set-emacs-frame-position-and-size)
 
 ;; org
 
