@@ -25,7 +25,7 @@
 
 ;; basic setup of emacs
 
-(setq inhibit-splash-screen t)    
+(setq inhibit-splash-screen nil)    
 (setq gc-cons-threshold 20000000)  
 (setq backup-directory-alist
        `((".*" . ,temporary-file-directory)))     
@@ -187,6 +187,7 @@
 	("M-s-O" . orgrr-open-ref-url)
 	("M-s-c" . orgrr-compile-sequence)
 	("C-o c" . orgrr-compile-sequence)))
+
  (defun lt/combined-search ()
   "Combines orgrr-search and metasearch-search-set."
  (interactive)
@@ -254,6 +255,12 @@
 
 ;; start up window & font & design
 (add-to-list 'default-frame-alist '(fullscreen . maximized))
+;; org-mode emphasis
+(add-to-list 'org-emphasis-alist
+	     '("/" (italic :foreground "DarkOrange1")
+	       ("_" nil))) ;; disable underline
+;; Underline line at descent position, not baseline position
+(setq x-underline-at-descent-line t)
 (load-theme 'zenburn t)
 (fringe-mode 10)
 (set-face-attribute 'fringe nil :background (face-background 'default))
