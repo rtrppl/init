@@ -362,6 +362,21 @@ Version 2019-11-05"
   "Move backward to previous footnote."
   (interactive)
   (re-search-backward "fn:" nil t))
- 
 
+;; spellchecking
+
+(with-eval-after-load "ispell"
+  (setenv "LANG" "en_US")
+  (setq ispell-program-name "hunspell")
+  ;; Configure German, Swiss German, and two variants of English.
+  (setq ispell-dictionary "de_DE_frami,en_US")
+  (ispell-set-spellchecker-params)
+  (ispell-hunspell-add-multi-dic "de_DE_frami,en_US")
+  (setq ispell-personal-dictionary "~/.hunspell_personal"))
+
+(add-hook 'org-mode-hook 'turn-on-flyspell)
   
+;; load pp
+
+ (when (file-exists-p "~/.pp")
+  (load "~/.pp"))
