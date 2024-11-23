@@ -25,7 +25,7 @@
 
 ;; basic setup of emacs
 
-(setq inhibit-splash-screen nil)    
+(setq inhibit-splash-screen t)    
 (setq gc-cons-threshold 20000000)  
 (setq backup-directory-alist
        `((".*" . ,temporary-file-directory)))     
@@ -207,9 +207,13 @@
 ;; start up window & font & design
 (add-to-list 'default-frame-alist '(fullscreen . maximized))
 ;; org-mode emphasis
-(add-to-list 'org-emphasis-alist
-	     '("/" (italic :foreground "DarkOrange1")
-	       ("_" nil))) ;; disable underline
+(setq org-emphasis-alist
+      '(("/" (italic :foreground "DarkOrange1"))
+	("_" nil) ;; disable underline
+	("*" bold)
+	("=" org-verbatim verbatim)
+	("~" org-code verbatim)
+	("+" (:strike-through t))))
 ;; Underline line at descent position, not baseline position
 (setq x-underline-at-descent-line t)
 (load-theme 'zenburn t)
