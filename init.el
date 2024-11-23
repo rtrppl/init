@@ -188,55 +188,6 @@
 	("M-s-c" . orgrr-compile-sequence)
 	("C-o c" . orgrr-compile-sequence)))
 
- (defun lt/combined-search ()
-  "Combines orgrr-search and metasearch-search-set."
- (interactive)
- (let ((search-query))
-   (if (region-active-p)
-	    (setq search-query (buffer-substring-no-properties (region-beginning)(region-end)))
-	  (setq search-query (read-from-minibuffer "Search: ")))
-   (orgrr-search '(4) search-query)
-   (metasearch-search-set "Search" search-query)))
-
-(global-set-key (kbd "C-c d c") 'lt/combined-search)
-
-(defun lt/sequence-1 ()
- "A function to invoke my favorite sequence."
- (interactive)
- (orgrr-show-sequence "political system of the People's Republic of China"))
-
-(defun lt/sequence-2 ()
- "A function to invoke my favorite sequence."
- (interactive)
- (orgrr-show-sequence "politicial science"))
-
-(defun lt/sequence-3 ()
- "A function to invoke my favorite sequence."
- (interactive)
- (orgrr-show-sequence "self-improvement"))
-
-(defun lt/sequence-4 ()
- "A function to invoke my favorite sequence."
- (interactive)
- (orgrr-show-sequence "OSINT"))
-
-(defun lt/sequence-5 ()
- "A function to invoke my favorite sequence."
- (interactive)
- (orgrr-show-sequence "Rural China"))
-
-(global-set-key (kbd "C-o 1") 'lt/sequence-1)
-(global-set-key (kbd "C-o 2") 'lt/sequence-2)
-(global-set-key (kbd "C-o 3") 'lt/sequence-3)
-(global-set-key (kbd "C-o 4") 'lt/sequence-4)
-(global-set-key (kbd "C-o 5") 'lt/sequence-5)
-
-(global-set-key (kbd "M-s-1") 'lt/sequence-1)
-(global-set-key (kbd "M-s-2") 'lt/sequence-2)
-(global-set-key (kbd "M-s-3") 'lt/sequence-3)
-(global-set-key (kbd "M-s-4") 'lt/sequence-4)
-(global-set-key (kbd "M-s-5") 'lt/sequence-5)
-
 (use-package ox-pandoc)
 
 (use-package vertico
@@ -388,7 +339,7 @@ Version 2019-11-05"
     (set-window-buffer-start-and-point w1 b2 s2 p2)
     (set-window-buffer-start-and-point w2 b1 s1 p1)))))))
 
-(defun lt/copy-file-name-to-clipboard ()
+(defun copy-file-name-to-clipboard ()
   "Copy the current buffer file name to the clipboard."
   (interactive)
   (let ((filename (if (equal major-mode 'dired-mode)
@@ -397,11 +348,6 @@ Version 2019-11-05"
     (when filename
       (kill-new filename)
       (message "Copied buffer file name '%s' to the clipboard." filename))))
-
- (when (eq system-type 'darwin) ;; Bookends support if this runs on a mac
-   (defun bookends-open-ext (path-to-media)
-     (shell-command (concat "open bookends:" path-to-media)))
-   (org-add-link-type "bookends" 'bookends-open-ext))
 
 (defun forward-fn ()
   "Move forward to next footnote."
