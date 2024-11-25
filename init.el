@@ -116,6 +116,8 @@
   :config
   (marginalia-mode 1))
 
+(use-package markdown-mode)
+
 (use-package metasearch
   :straight (:local-repo  "~/Documents/GitHub/metasearch")
   :config
@@ -207,13 +209,14 @@
 ;; start up window & font & design
 (add-to-list 'default-frame-alist '(fullscreen . maximized))
 ;; org-mode emphasis
-(setq org-emphasis-alist
-      '(("/" (italic :foreground "DarkOrange1"))
-	("_" nil) ;; disable underline
-	("*" bold)
-	("=" org-verbatim verbatim)
-	("~" org-code verbatim)
-	("+" (:strike-through t))))
+(add-to-list 'org-emphasis-alist '("_" nil))
+;(setq org-emphasis-alist
+;      '(("/" (italic :foreground "DarkOrange1"))
+;	("_" nil) ;; disable underline
+;	("*" bold)
+;	("=" org-verbatim verbatim)
+;	("~" org-code verbatim)
+;	("+" (:strike-through t))))
 ;; Underline line at descent position, not baseline position
 (setq x-underline-at-descent-line t)
 (load-theme 'zenburn t)
