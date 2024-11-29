@@ -381,5 +381,5 @@ Version 2019-11-05"
   
 ;; load pp
 
- (when (file-exists-p "~/.pp")
-  (load "~/.pp"))
+ (when (file-exists-p "~/.pp.el")
+  (load "~/.pp.el"))
