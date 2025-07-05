@@ -30,8 +30,7 @@
 (setq straight-use-package-by-default t)
 (straight-use-package '(org :type built-in))
 
-;; These common-sense standards for Emacs - change them only if know what you
-;; are doing.
+;; These are common-sense standards for Emacs - change them at your peril :). 
 
 (setq inhibit-splash-screen t)    
 (setq gc-cons-threshold 20000000)  
@@ -73,7 +72,8 @@
 ;; Cleandesk is an upgrade to Dired, the file manager on Emacs
 
 (use-package alternative-spellings
-  :straight (:local-repo  "~/Documents/GitHub/alternative-spellings")
+  :straight (:host github :repo "rtrppl/alternative-spellings"
+		   :branch "main")
    :bind
   (:map global-map
 	      ("C-c d a a" . alternative-spellings)
