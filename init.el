@@ -1,7 +1,14 @@
 ;; This setup uses the straight package manager. It was written to maximize
 ;; speed and ease of reproduction.  
 
-;; setting up package management
+
+;; The setup expects the following software to be installed:
+;; - ripgrep 
+;; - mpv
+;; - fd
+;; - tree
+
+;; The following part is setting up package management for Emacs
 
 (defvar bootstrap-version)
 (let ((bootstrap-file
@@ -23,14 +30,15 @@
 (setq straight-use-package-by-default t)
 (straight-use-package '(org :type built-in))
 
-;; basic setup of emacs
+;; These common-sense standards for Emacs - change them only if know what you
+;; are doing.
 
 (setq inhibit-splash-screen t)    
 (setq gc-cons-threshold 20000000)  
 (setq backup-directory-alist
        `((".*" . ,temporary-file-directory)))     
-(setq auto-save-file-name-transforms                                                                      
-      `((".*" ,temporary-file-directory t)))
+(setq auto-save-file-name-transforms                         
+      `((".*" ,temporary-file-directory t))) 
 
 (global-auto-revert-mode t)
 (display-time-mode t)
@@ -43,7 +51,7 @@
 (pixel-scroll-precision-mode)
 (setq scroll-conservatively 100)
 
-;; chinese fonts
+;; Settings for Chinese fonts for different OS
 (when (eq system-type 'darwin)
   (add-to-list 'face-font-rescale-alist
                '("PingFang SC" . 1.4))
@@ -57,24 +65,41 @@
     (set-fontset-font t script
                       (font-spec :family "Noto Sans Mono CJK SC"))))
 
+;; TODO Add setting for Windows
+
 ;; loading packages
+
+
+;; Cleandesk is an upgrade to Dired, the file manager on Emacs
+
+(use-package alternative-spellings
+  :straight (:local-repo  "~/Documents/GitHub/alternative-spellings")
+   :bind
+  (:map global-map
+	      ("C-c d a a" . alternative-spellings)
+	      ("C-c d a c" . alternative-spellings-copy)
+	      ("C-c d a n" . alternative-spelling-add-new-spellings)
+	      ("C-c d a r" . alternative-spelling-remove-spellings)))
 
 (use-package cleandesk
   :straight (:host github :repo "rtrppl/cleandesk"
 		   :branch "main")
-  :config
-  (setq cleandesk-inbox-folder "~/Desktop/")
-  (global-set-key (kbd "C-c u") 'cleandesk-open-inbox)
-  (with-eval-after-load 'dired
-    (define-key dired-mode-map (kbd "J") 'cleandesk-jump-to-folder)
-    (define-key dired-mode-map (kbd "M") 'cleandesk-move-files)
-    (define-key dired-mode-map (kbd "z") 'cleandesk-prepend-date)
-    (define-key dired-mode-map (kbd "S") 'cleandesk-search)
-    (define-key dired-mode-map (kbd "r") 'cleandesk-rename)))
-
-(use-package cc-cedict
-  :config
-  (setq cc-cedict-file "~/Documents/cc-cedict/cedict_1_0_ts_utf-8_mdbg.txt"))
+ :config
+  (setq cleandesk-inbox-folder "~/Desktop")
+  :bind
+  (:map global-map
+	      ("C-c u u" . cleandesk-open-inbox)
+	      ("C-c u j" . cleandesk-jump-to-folder))
+  (:map dired-mode-map
+	      ("J" . cleandesk-jump-to-folder)
+	      ("M" . cleandesk-move-files)
+	      ("z" . cleandesk-prepend-date)
+	      ("S" . cleandesk-search)
+	      ("R" . cleandesk-simple-rename)
+	      ("b" . cleandesk-create-org-link)
+	      ("T" . cleandesk-show-tree)
+	      ("r" . cleandesk-rename)
+	      ("SPC" . cleandesk-quicklook)))
 
 (use-package consult
   :bind (;; A recursive grep
@@ -104,6 +129,10 @@
   (put 'dired-find-alternate-file 'disabled nil)
   (setq delete-by-moving-to-trash t))
 
+(use-package discover
+  :config
+  (global-discover-mode 1))
+
 (use-package embark
   :bind (("C-." . embark-act)
          :map minibuffer-local-map
@@ -119,7 +148,8 @@
 (use-package markdown-mode)
 
 (use-package metasearch
-  :straight (:local-repo  "~/Documents/GitHub/metasearch")
+ :straight (:host github :repo "rtrppl/metasearch"
+		   :branch "main")
   :config
   (defun metasearch-search ()
     (interactive)
@@ -192,6 +222,11 @@
 
 (use-package ox-pandoc)
 
+(use-package powerthesaurus
+  :bind
+  (:map global-map)
+  ("C-c d P" . powerthesaurus-lookup-word-at-point)) 
+
 (use-package vertico
   :config
   (setq vertico-cycle t)
@@ -199,6 +234,19 @@
 ;  (setq vertico-sort-function nil)
 ;  (setq vertico-respect-minibuffer-completion-styles t)
   (vertico-mode 1))
+
+
+(use-package website2org
+ :straight (:host github :repo "rtrppl/website2org"
+		   :branch "main")
+  :config
+  (setq website2org-directory "~/Documents/GitHub/container/findings/")
+  (setq website2org-archive t)
+  (setq website2org-additional-meta (concat website2org-additional-meta " " (format-time-string "%Y") " " (format-time-string "%B") " xxr"))
+  :bind
+  (:map global-map)
+  ("C-M-s-<down>" . website2org)
+  ("C-M-s-<up>" . website2org-temp))
 
 (use-package which-key
   :config
