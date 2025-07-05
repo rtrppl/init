@@ -69,17 +69,18 @@
 ;; loading packages
 
 
-;; Cleandesk is an upgrade to Dired, the file manager on Emacs
+
 
 (use-package alternative-spellings
-  :straight (:host github :repo "rtrppl/alternative-spellings"
-		   :branch "main")
-   :bind
+  :straight (:host github :repo "rtrppl/alternative-spellings")
+  :bind
   (:map global-map
-	      ("C-c d a a" . alternative-spellings)
-	      ("C-c d a c" . alternative-spellings-copy)
-	      ("C-c d a n" . alternative-spelling-add-new-spellings)
-	      ("C-c d a r" . alternative-spelling-remove-spellings)))
+	("C-c d a a" . alternative-spellings)
+	("C-c d a c" . alternative-spellings-copy)
+	("C-c d a n" . alternative-spelling-add-new-spellings)
+	("C-c d a r" . alternative-spelling-remove-spellings)))
+
+;; Cleandesk is an upgrade to Dired, the file manager on Emacs
 
 (use-package cleandesk
   :straight (:host github :repo "rtrppl/cleandesk"
