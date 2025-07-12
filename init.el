@@ -1,12 +1,17 @@
 ;; This setup uses the straight package manager. It was written to maximize
 ;; speed and ease of reproduction.  
-
-
+;;
+;; Version 0.1
+;;
 ;; The setup expects the following software to be installed:
 ;; - ripgrep 
 ;; - mpv
 ;; - fd
 ;; - tree
+
+
+
+
 
 ;; The following part is setting up package management for Emacs
 
@@ -67,8 +72,6 @@
 ;; TODO Add setting for Windows
 
 ;; loading packages
-
-
 
 
 (use-package alternative-spellings
@@ -236,18 +239,18 @@
 ;  (setq vertico-respect-minibuffer-completion-styles t)
   (vertico-mode 1))
 
-
 (use-package website2org
  :straight (:host github :repo "rtrppl/website2org"
 		   :branch "main")
-  :config
-  (setq website2org-directory "~/Documents/GitHub/container/findings/")
-  (setq website2org-archive t)
-  (setq website2org-additional-meta (concat website2org-additional-meta " " (format-time-string "%Y") " " (format-time-string "%B") " xxr"))
-  :bind
-  (:map global-map)
-  ("C-M-s-<down>" . website2org)
-  ("C-M-s-<up>" . website2org-temp))
+ :after (dired) (org)
+ :config
+ (setq website2org-directory "~/Documents/GitHub/container/findings/")
+ (setq website2org-archive t)
+ (setq website2org-additional-meta (concat website2org-additional-meta " " (format-time-string "%Y") " " (format-time-string "%B") " xxr"))
+ :bind
+ (:map global-map)
+ ("C-M-s-<down>" . website2org)
+ ("C-M-s-<up>" . website2org-temp))
 
 (use-package which-key
   :config
