@@ -365,6 +365,26 @@
 (define-key org-mode-map (kbd "C-f") nil)
 (define-key org-mode-map (kbd "C-f <right>") 'forward-fn)
 (define-key org-mode-map (kbd "C-f <left>") 'backward-fn)
+(global-set-key (kbd "M-<right>") 'right-word)
+(global-set-key (kbd "M-<left>") 'left-word)
+(global-set-key (kbd "M-<up>") 'backward-paragraph)
+(global-set-key (kbd "M-<down>") 'forward-paragraph)
+(global-set-key (kbd "C-<up>") 'org-metaup)
+(global-set-key (kbd "C-<down>") 'org-metadown)
+(global-set-key (kbd "C-<right>") 'org-metaright)
+(global-set-key (kbd "C-<left>") 'org-metaleft)
+(global-set-key (kbd "C-)") 'forward-paragraph)
+(global-set-key (kbd "C-(") 'backward-paragraph)
+(global-set-key (kbd "s-n") 'make-frame)
+(global-set-key (kbd "s-z") 'undo)
+(global-set-key (kbd "s-<right>") 'end-of-visual-line)
+(global-set-key (kbd "s-<left>") 'beginning-of-visual-line)
+(global-set-key (kbd "s-<up>") 'beginning-of-buffer)
+(global-set-key (kbd "s-<down>") 'end-of-buffer)
+(global-set-key (kbd "s-<return>") 'org-meta-return)
+(global-set-key (kbd "M-s-<left>") 'org-previous-link)
+(global-set-key (kbd "M-s-<down>") 'org-open-at-point)
+
 
 ;; modififications
 
