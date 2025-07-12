@@ -85,7 +85,8 @@
 (use-package cleandesk
   :straight (:host github :repo "rtrppl/cleandesk"
 		   :branch "main")
- :config
+  :after (dired) (org)
+  :config
   (setq cleandesk-inbox-folder "~/Desktop")
   :bind
   (:map global-map
@@ -120,7 +121,6 @@
 
 (use-package dired
   :straight nil
-  :defer t
   :config
   (when (and (eq system-type 'darwin) (executable-find "gls"))
     (setq insert-directory-program "gls"))
