@@ -458,14 +458,15 @@ Version 2019-11-05"
 
 ;; spellchecking
 
-(with-eval-after-load "ispell"
+(when (not (eq system-type 'windows-nt))
+  (with-eval-after-load "ispell"
   (setenv "LANG" "en_US")
   (setq ispell-program-name "hunspell")
   ;; Configure German, Swiss German, and two variants of English.
   (setq ispell-dictionary "de_DE,en_US")
   (ispell-set-spellchecker-params)
   (ispell-hunspell-add-multi-dic "de_DE,en_US")
-  (setq ispell-personal-dictionary "~/.hunspell_personal"))
+  (setq ispell-personal-dictionary "~/.hunspell_personal")))
 
 (add-hook 'org-mode-hook 'turn-on-flyspell)
   
