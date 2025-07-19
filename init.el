@@ -8,11 +8,7 @@
 ;; - mpv
 ;; - fd
 ;; - tree
-
-
-
-
-
+;;
 ;; The following part is setting up package management for Emacs
 
 (defvar bootstrap-version)
@@ -311,7 +307,7 @@
                       :underline nil
                       :slant 'normal
                       :weight 'normal
-                      :height 160
+                      :height 140
                       :width 'normal
                       :foundry "nil"
                       :family "Consolas"))
