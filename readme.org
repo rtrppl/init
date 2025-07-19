@@ -1,0 +1,18 @@
+#+title: A minimal research setup for Emacs
+
+* Idea
+
+This is a specialized Emacs configuration for research, optimized for Linux virtual machines (tested with Fedora and Ubuntu). 
+
+* Necessary command-line tools
+
+For this setup to work properly you need to install git, ripgrep, fd, yt-dlp, mpv, and hunspell.
+
+* How to
+
+Install the necessary command-line tools. Then create a local folder such as ~\~/documents/GitHub/init~ and go to that directory. Then:
+
+#+begin_src bash
+git clone https://github.com/rtrppl/init.git
+ln -s ~/documents/GitHub/init/init.el ~/.emacs
+#+end_src

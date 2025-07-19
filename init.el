@@ -298,6 +298,24 @@
                       :foundry "nil"
                       :family "Menlo")
 
+(when (eq system-type 'windows-nt)
+;; Set the default face attributes for macOS
+  (set-face-attribute 'default nil
+                      :inherit nil
+                      :extend nil
+                      :stipple nil
+                      :inverse-video nil
+                      :box nil
+                      :strike-through nil
+                      :overline nil
+                      :underline nil
+                      :slant 'normal
+                      :weight 'normal
+                      :height 160
+                      :width 'normal
+                      :foundry "nil"
+                      :family "Consolas")
+
 ;; Set the bold face attributes
   (set-face-attribute 'bold nil
                       :foreground "plum1"
@@ -444,9 +462,9 @@ Version 2019-11-05"
   (setenv "LANG" "en_US")
   (setq ispell-program-name "hunspell")
   ;; Configure German, Swiss German, and two variants of English.
-  (setq ispell-dictionary "de_DE_frami,en_US")
+  (setq ispell-dictionary "de_DE,en_US")
   (ispell-set-spellchecker-params)
-  (ispell-hunspell-add-multi-dic "de_DE_frami,en_US")
+  (ispell-hunspell-add-multi-dic "de_DE,en_US")
   (setq ispell-personal-dictionary "~/.hunspell_personal"))
 
 (add-hook 'org-mode-hook 'turn-on-flyspell)
