@@ -317,9 +317,9 @@
                       :family "Consolas"))
 
 ;; Set the bold face attributes
-  (set-face-attribute 'bold nil
-                      :foreground "plum1"
-                      :weight 'bold))
+(set-face-attribute 'bold nil
+                    :foreground "plum1"
+                    :weight 'bold)
 
 (electric-indent-mode -1) ;; prevents indents in org-babbel
 
