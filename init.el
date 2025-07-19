@@ -296,7 +296,7 @@
                       :height 160
                       :width 'normal
                       :foundry "nil"
-                      :family "Menlo")
+                      :family "Menlo"))
 
 (when (eq system-type 'windows-nt)
 ;; Set the default face attributes for macOS
@@ -314,7 +314,7 @@
                       :height 160
                       :width 'normal
                       :foundry "nil"
-                      :family "Consolas")
+                      :family "Consolas"))
 
 ;; Set the bold face attributes
   (set-face-attribute 'bold nil
