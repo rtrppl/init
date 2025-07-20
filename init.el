@@ -463,9 +463,8 @@ Version 2019-11-05"
   (setq ispell-dictionary "de_DE,en_US")
   (ispell-set-spellchecker-params)
   (ispell-hunspell-add-multi-dic "de_DE,en_US")
-  (setq ispell-personal-dictionary "~/.hunspell_personal")))
-
-(add-hook 'org-mode-hook 'turn-on-flyspell)
+  (setq ispell-personal-dictionary "~/.hunspell_personal"))
+  (add-hook 'org-mode-hook 'turn-on-flyspell))
   
 ;; load pp
 
