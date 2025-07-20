@@ -243,7 +243,7 @@
  (setq website2org-archive t)
  (setq website2org-additional-meta (concat website2org-additional-meta " " (format-time-string "%Y") " " (format-time-string "%B") " xxr"))
  (when (eq system-type 'windows-nt)
-   (website2org-cache-filename "website2org-cache.html"))
+   (setq website2org-cache-filename "website2org-cache.html"))
  :bind
  (:map global-map)
  ("C-M-s-<down>" . website2org)
