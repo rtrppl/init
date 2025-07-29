@@ -79,6 +79,15 @@
 	("C-c d a n" . alternative-spelling-add-new-spellings)
 	("C-c d a r" . alternative-spelling-remove-spellings)))
 
+
+(use-package cnfonts)
+;; 让 cnfonts 随着 Emacs 自动生效。
+(cnfonts-enable)
+;; 让 spacemacs mode-line 中的 Unicode 图标正确显示。
+;; (cnfonts-set-spacemacs-fallback-fonts)
+(setq cnfonts-use-face-font-rescale t)
+(cnfonts--next-fontsize 2)
+
 ;; Cleandesk is an upgrade to Dired, the file manager on Emacs
 
 (use-package cleandesk
@@ -469,4 +478,4 @@ Version 2019-11-05"
 ;; load pp
 
  (when (file-exists-p "~/.pp.el")
-  (load "~/.pp.el"))
+  (load (expand-file-name "~/.pp.el")))
