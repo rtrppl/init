@@ -236,6 +236,15 @@
   (:map global-map)
   ("C-c d P" . powerthesaurus-lookup-word-at-point)) 
 
+(use-package pyim)
+(use-package pyim-basedict)
+
+(pyim-basedict-enable)
+(setq default-input-method "pyim")
+(setq pyim-page-length 6)
+(pyim-default-scheme 'quanpin)
+(pyim-isearch-mode 1)
+
 (use-package vertico
   :config
   (setq vertico-cycle t)
@@ -408,7 +417,7 @@
 (global-set-key (kbd "s-<return>") 'org-meta-return)
 (global-set-key (kbd "M-s-<left>") 'org-previous-link)
 (global-set-key (kbd "M-s-<down>") 'org-open-at-point)
-
+(global-set-key (kbd "C-/") 'toggle-input-method)
 
 ;; modififications
 
