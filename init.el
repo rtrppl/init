@@ -294,7 +294,7 @@
 (setq-default line-spacing 0.15)
 (global-visual-line-mode 1)
 (when (eq system-type 'gnu/linux)
-  (set-face-attribute 'default nil :height 120))
+  (set-face-attribute 'default nil :height 110))
 (when (eq system-type 'darwin)
 ;; Set the default face attributes for macOS
   (set-face-attribute 'default nil
