@@ -294,7 +294,23 @@
 (setq-default line-spacing 0.15)
 (global-visual-line-mode 1)
 (when (eq system-type 'gnu/linux)
-  (set-face-attribute 'default nil :height 110))
+  (when (eq system-type 'gnu/linux)
+  ;; Set the default face attributes for Ubuntu/Linux
+  (set-face-attribute 'default nil
+                      :inherit nil
+                      :extend nil
+                      :stipple nil
+                      :inverse-video nil
+                      :box nil
+                      :strike-through nil
+                      :overline nil
+                      :underline nil
+                      :slant 'normal
+                      :weight 'normal
+                      :height 140  ;; 140 means 14pt, adjust if desired
+                      :width 'normal
+                      :foundry "nil"
+                      :family "DejaVu Sans Mono"))  ;; or "Ubuntu Mono"
 (when (eq system-type 'darwin)
 ;; Set the default face attributes for macOS
   (set-face-attribute 'default nil
