@@ -51,65 +51,20 @@
 (pixel-scroll-precision-mode)
 (setq scroll-conservatively 100)
 
-;; Settings for Chinese fonts for different OS
-(when (eq system-type 'darwin)
-  (add-to-list 'face-font-rescale-alist
-               '("PingFang SC" . 1.4))
-  (dolist (script '(kana han cjk-misc symbol))
-    (set-fontset-font t script
-                      (font-spec :family "PingFang SC"))))
-(when (eq system-type 'gnu/linux)
-  (add-to-list 'face-font-rescale-alist
-               '("Noto Sans Mono CJK SC" . 1.4))
-  (dolist (script '(kana han cjk-misc symbol))
-    (set-fontset-font t script
-                      (font-spec :family "Noto Sans Mono CJK SC"))))
-
-;; TODO Add setting for Windows
 
 ;; loading packages
 
+;; CNFonts do not seem to work on Ubuntu machines. Disabled for now.
 
-(use-package alternative-spellings
-  :straight (:host github :repo "rtrppl/alternative-spellings")
-  :bind
-  (:map global-map
-	("C-c d a a" . alternative-spellings)
-	("C-c d a c" . alternative-spellings-copy)
-	("C-c d a n" . alternative-spelling-add-new-spellings)
-	("C-c d a r" . alternative-spelling-remove-spellings)))
-
-
-(use-package cnfonts)
+;(use-package cnfonts)
 ;; 让 cnfonts 随着 Emacs 自动生效。
-(cnfonts-enable)
+;(cnfonts-enable)
 ;; 让 spacemacs mode-line 中的 Unicode 图标正确显示。
 ;; (cnfonts-set-spacemacs-fallback-fonts)
-(setq cnfonts-use-face-font-rescale t)
-(cnfonts--next-fontsize 2)
+;(setq cnfonts-use-face-font-rescale t)
+;(cnfonts--next-fontsize 2)
 
 ;; Cleandesk is an upgrade to Dired, the file manager on Emacs
-
-(use-package cleandesk
-  :straight (:host github :repo "rtrppl/cleandesk"
-		   :branch "main")
-  :after (dired) (org)
-  :config
-  (setq cleandesk-inbox-folder "~/Desktop")
-  :bind
-  (:map global-map
-	      ("C-c u u" . cleandesk-open-inbox)
-	      ("C-c u j" . cleandesk-jump-to-folder))
-  (:map dired-mode-map
-	      ("J" . cleandesk-jump-to-folder)
-	      ("M" . cleandesk-move-files)
-	      ("z" . cleandesk-prepend-date)
-	      ("S" . cleandesk-search)
-	      ("R" . cleandesk-simple-rename)
-	      ("b" . cleandesk-create-org-link)
-	      ("T" . cleandesk-show-tree)
-	      ("r" . cleandesk-rename)
-	      ("SPC" . cleandesk-quicklook)))
 
 (use-package consult
   :bind (;; A recursive grep
@@ -156,6 +111,9 @@
 
 (use-package markdown-mode)
 
+;; A package to search on several different search engines
+;; at the same time. 
+
 (use-package metasearch
  :straight (:host github :repo "rtrppl/metasearch"
 		   :branch "main")
@@ -167,6 +125,8 @@
   (:map global-map
 	      ("C-c d m" . metasearch-search)
 	      ("C-c d M" . metasearch-search-set)))
+
+;; For reading ebooks.
 
 (use-package nov
   :config
@@ -186,48 +146,6 @@
 
 (use-package org-web-tools)
 
-(use-package orgrr
-  :straight (:host github :repo "rtrppl/orgrr"
-		   :branch "main")
-  :bind
-  (:map global-map
-	("C-o" . nil)
-	("C-o f" . orgrr-find)
-	("M-s-f" . orgrr-find)
-	("C-o l" . orgrr-show-backlinks)
-	("M-s-l" . orgrr-show-backlinks)
-	("C-o i" . orgrr-insert)
-	("M-s-i" . orgrr-insert)
-	("C-o I" . orgrr-insert-project)
-	("M-s-I" . orgrr-insert-project)
-	("C-o A" . orgrr-add-to-project)
-	("M-s-A" . orgrr-add-to-project)
-	("C-o P" . orgrr-open-project)
-	("M-s-P" . orgrr-open-project)
-	("C-o r" . orgrr-show-related-notes)
-	("M-s-r" . orgrr-show-related-notes)
-	("C-o R" . orgrr-random-note)
-	("M-s-R" . orgrr-random-note)
-	("C-o o" . orgrr-change-container)
-	("M-s-o" . orgrr-change-container)
-	("C-o a" . orgrr-add-zettel)
-	("M-s-a" . orgrr-add-zettel)
-	("C-o z" . orgrr-find-zettel)
-	("M-s-z" . orgrr-find-zettel)
-	("C-o s" . orgrr-show-sequence)
-	("M-s-s" . orgrr-show-sequence)
-	("M-s-S" . orgrr-search)
-	("C-o S" . orgrr-search)
-	("C-o p" . orgrr-open-previous-zettel)
-	("M-s-p" . orgrr-open-previous-zettel)
-	("C-o n" . orgrr-open-next-zettel)
-	("M-s-n" . orgrr-open-next-zettel)
-	("C-o N" . orgrr-no-find-zettel)
-	("M-s-N" . orgrr-no-find-zettel)
-	("C-o O" . orgrr-open-ref-url)
-	("M-s-O" . orgrr-open-ref-url)
-	("M-s-c" . orgrr-compile-sequence)
-	("C-o c" . orgrr-compile-sequence)))
 
 (use-package ox-pandoc)
 
@@ -253,27 +171,16 @@
 ;  (setq vertico-respect-minibuffer-completion-styles t)
   (vertico-mode 1))
 
-(use-package website2org
- :straight (:host github :repo "rtrppl/website2org"
-		   :branch "main")
- :after (dired) (org)
- :config
- (setq website2org-archive t)
- (setq website2org-additional-meta (concat website2org-additional-meta " " (format-time-string "%Y") " " (format-time-string "%B") " xxr"))
- (when (eq system-type 'windows-nt)
-   (setq website2org-cache-filename "website2org-cache.html"))
- :bind
- (:map global-map)
- ("C-M-s-<down>" . website2org)
- ("C-M-s-<up>" . website2org-temp))
-
 (use-package which-key
   :config
   (which-key-mode))
 
 (use-package zenburn-theme)
 
-;; start up window & font & design
+;; The following section is about how Emacs looks.
+
+
+;; start up window & font & design > go max!
 (add-to-list 'default-frame-alist '(fullscreen . maximized))
 ;; org-mode emphasis
 (add-to-list 'org-emphasis-alist '("_" nil))
@@ -293,8 +200,8 @@
 (transient-mark-mode 1) ;; enable transient mark mode
 (setq-default line-spacing 0.15)
 (global-visual-line-mode 1)
+
 (when (eq system-type 'gnu/linux)
-  (when (eq system-type 'gnu/linux)
   ;; Set the default face attributes for Ubuntu/Linux
   (set-face-attribute 'default nil
                       :inherit nil
@@ -353,6 +260,27 @@
                     :weight 'bold)
 
 (electric-indent-mode -1) ;; prevents indents in org-babbel
+
+;; This fixes the Elfeed display.
+(setq shr-use-fonts nil)
+
+;; Settings for Chinese fonts for different OS
+(when (eq system-type 'darwin)
+  (add-to-list 'face-font-rescale-alist
+               '("PingFang SC" . 1.4))
+  (dolist (script '(kana han cjk-misc symbol))
+    (set-fontset-font t script
+                      (font-spec :family "PingFang SC"))))
+(when (eq system-type 'gnu/linux)
+  (add-to-list 'face-font-rescale-alist
+               '("Noto Sans Mono CJK SC" . 1.4))
+  (dolist (script '(kana han cjk-misc symbol))
+    (set-fontset-font t script
+                      (font-spec :family "Noto Sans Mono CJK SC"))))
+
+;; TODO Add setting for Windows
+
+
 
 ;; org
 
@@ -502,5 +430,5 @@ Version 2019-11-05"
   
 ;; load pp
 
- (when (file-exists-p "~/.pp.el")
-  (load (expand-file-name "~/.pp.el")))
+ (when (file-exists-p "~/setup/.pp.el")
+  (load-file (expand-file-name "~/setup/.pp.el")))
