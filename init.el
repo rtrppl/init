@@ -30,6 +30,7 @@
 (straight-use-package 'use-package)
 (setq straight-use-package-by-default t)
 (straight-use-package '(org :type built-in))
+(setq warning-minimum-level :error)
 
 ;; These are common-sense standards for Emacs - change them at your peril :). 
 
@@ -111,21 +112,6 @@
 
 (use-package markdown-mode)
 
-;; A package to search on several different search engines
-;; at the same time. 
-
-(use-package metasearch
- :straight (:host github :repo "rtrppl/metasearch"
-		   :branch "main")
-  :config
-  (defun metasearch-search ()
-    (interactive)
-    (metasearch-search-set "Search"))
-  :bind
-  (:map global-map
-	      ("C-c d m" . metasearch-search)
-	      ("C-c d M" . metasearch-search-set)))
-
 ;; For reading ebooks.
 
 (use-package nov
@@ -145,7 +131,6 @@
   :straight nil)
 
 (use-package org-web-tools)
-
 
 (use-package ox-pandoc)
 
@@ -362,6 +347,8 @@
 (global-set-key (kbd "M-s-<left>") 'org-previous-link)
 (global-set-key (kbd "M-s-<down>") 'org-open-at-point)
 (global-set-key (kbd "C-/") 'toggle-input-method)
+
+(setq cua-mode t)
 
 ;; modififications
 
