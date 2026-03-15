@@ -414,6 +414,20 @@ Version 2019-11-05"
   (ispell-hunspell-add-multi-dic "de_DE,en_US")
   (setq ispell-personal-dictionary "~/.hunspell_personal"))
   (add-hook 'org-mode-hook 'turn-on-flyspell))
+
+;; improvements for zotero
+
+(defun md-to-org-region (start end)
+  "Convert region from markdown to org"
+  (interactive "r")
+  (shell-command-on-region start end "pandoc -f markdown -t org --wrap=preserve" t t))
+
+(defun zotero-open-ext (path-to-media)
+  (shell-command (concat "open zotero:" path-to-media)))
+
+(org-link-set-parameters "zotero"
+                         :follow #'zotero-open-ext)
+
   
 ;; load pp
 
